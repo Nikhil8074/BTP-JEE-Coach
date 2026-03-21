@@ -1,0 +1,243 @@
+{
+  "topics": [
+    {
+      "topic": "Some Basic Concepts of Chemistry",
+      "subtopics": [
+        "Importance of Chemistry",
+        "Nature of Matter",
+        "Properties of Matter and Measurement",
+        "Uncertainty in Measurement",
+        "Laws of Chemical Combinations",
+        "Dalton’s Atomic Theory",
+        "Atomic and Molecular Masses",
+        "Mole Concept and Molar Masses",
+        "Percentage Composition",
+        "Stoichiometry and Calculations"
+      ]
+    },
+    {
+      "topic": "Structure of Atom",
+      "subtopics": [
+        "Discovery of Subatomic Particles",
+        "Atomic Models",
+        "Bohr Model Development",
+        "Bohr Model of Hydrogen Atom",
+        "Quantum Mechanical Model",
+        "Quantum Numbers"
+      ]
+    },
+    {
+      "topic": "Classification of Elements and Periodicity",
+      "subtopics": [
+        "Need for Classification",
+        "Periodic Classification",
+        "Modern Periodic Law",
+        "Nomenclature of Elements",
+        "Electronic Configuration and Periodicity",
+        "Periodic Trends"
+      ]
+    },
+    {
+      "topic": "Chemical Bonding and Molecular Structure",
+      "subtopics": [
+        "Kossel-Lewis Approach",
+        "Ionic and Covalent Bond",
+        "Bond Parameters",
+        "VSEPR Theory",
+        "Valence Bond Theory",
+        "Hybridisation",
+        "Molecular Orbital Theory",
+        "Bonding in Homonuclear Molecules",
+        "Hydrogen Bonding"
+      ]
+    },
+    {
+      "topic": "Thermodynamics",
+      "subtopics": [
+        "Thermodynamic Terms",
+        "Applications",
+        "Calorimetry",
+        "Enthalpy Change",
+        "Types of Enthalpy",
+        "Spontaneity",
+        "Gibbs Energy and Equilibrium"
+      ]
+    },
+    {
+      "topic": "Equilibrium",
+      "subtopics": [
+        "Physical Equilibrium",
+        "Chemical Equilibrium",
+        "Law of Equilibrium",
+        "Homogeneous Equilibrium",
+        "Heterogeneous Equilibrium",
+        "Applications of Equilibrium",
+        "Equilibrium Constant and Reaction Quotient",
+        "Factors Affecting Equilibrium",
+        "Ionic Equilibrium",
+        "Acids, Bases and Salts",
+        "Ionization",
+        "Buffer Solutions",
+        "Solubility Equilibrium"
+      ]
+    },
+    {
+      "topic": "Redox Reactions",
+      "subtopics": [
+        "Oxidation and Reduction",
+        "Electron Transfer Concept",
+        "Oxidation Number",
+        "Redox Reactions and Electrode Processes"
+      ]
+    },
+    {
+      "topic": "Organic Chemistry - Basic Principles",
+      "subtopics": [
+        "Tetravalency of Carbon",
+        "Structural Representations",
+        "Classification of Organic Compounds",
+        "Nomenclature",
+        "Isomerism",
+        "Reaction Mechanism Concepts",
+        "Purification Methods",
+        "Qualitative Analysis",
+        "Quantitative Analysis"
+      ]
+    },
+    {
+      "topic": "Hydrocarbons",
+      "subtopics": [
+        "Classification",
+        "Alkanes",
+        "Alkenes",
+        "Alkynes",
+        "Aromatic Hydrocarbons",
+        "Carcinogenicity and Toxicity"
+      ]
+    },
+    {
+      "topic": "Solutions",
+      "subtopics": [
+        "Types of Solutions",
+        "Concentration of Solutions",
+        "Solubility",
+        "Vapour Pressure",
+        "Ideal and Non-ideal Solutions",
+        "Colligative Properties",
+        "Abnormal Molar Mass"
+      ]
+    },
+    {
+      "topic": "Electrochemistry",
+      "subtopics": [
+        "Electrochemical Cells",
+        "Galvanic Cells",
+        "Nernst Equation",
+        "Conductance of Electrolytes",
+        "Electrolysis",
+        "Batteries",
+        "Fuel Cells",
+        "Corrosion"
+      ]
+    },
+    {
+      "topic": "Chemical Kinetics",
+      "subtopics": [
+        "Rate of Reaction",
+        "Factors Affecting Rate",
+        "Integrated Rate Equations",
+        "Temperature Dependence",
+        "Collision Theory"
+      ]
+    },
+    {
+      "topic": "d- and f-Block Elements",
+      "subtopics": [
+        "Position in Periodic Table",
+        "Electronic Configuration",
+        "General Properties",
+        "Important Compounds",
+        "Lanthanoids",
+        "Actinoids",
+        "Applications"
+      ]
+    },
+    {
+      "topic": "Coordination Compounds",
+      "subtopics": [
+        "Werner’s Theory",
+        "Important Definitions",
+        "Nomenclature",
+        "Isomerism",
+        "Bonding",
+        "Bonding in Metal Carbonyls",
+        "Applications"
+      ]
+    },
+    {
+      "topic": "Haloalkanes and Haloarenes",
+      "subtopics": [
+        "Classification",
+        "Nomenclature",
+        "Nature of C-X Bond",
+        "Preparation of Haloalkanes",
+        "Preparation of Haloarenes",
+        "Physical Properties",
+        "Chemical Reactions",
+        "Polyhalogen Compounds"
+      ]
+    },
+    {
+      "topic": "Alcohols, Phenols and Ethers",
+      "subtopics": [
+        "Classification",
+        "Nomenclature",
+        "Functional Group Structures",
+        "Alcohols and Phenols",
+        "Important Alcohols",
+        "Ethers"
+      ]
+    },
+    {
+      "topic": "Aldehydes, Ketones and Carboxylic Acids",
+      "subtopics": [
+        "Carbonyl Group Structure",
+        "Preparation of Aldehydes and Ketones",
+        "Physical Properties",
+        "Chemical Reactions",
+        "Uses of Aldehydes and Ketones",
+        "Carboxyl Group Structure",
+        "Preparation of Carboxylic Acids",
+        "Properties of Carboxylic Acids",
+        "Reactions of Carboxylic Acids",
+        "Uses of Carboxylic Acids"
+      ]
+    },
+    {
+      "topic": "Amines",
+      "subtopics": [
+        "Structure of Amines",
+        "Classification",
+        "Nomenclature",
+        "Preparation of Amines",
+        "Physical Properties",
+        "Chemical Reactions",
+        "Preparation of Diazonium Salts",
+        "Properties of Diazonium Salts",
+        "Reactions of Diazonium Salts",
+        "Importance of Diazonium Salts"
+      ]
+    },
+    {
+      "topic": "Biomolecules",
+      "subtopics": [
+        "Carbohydrates",
+        "Proteins",
+        "Enzymes",
+        "Vitamins",
+        "Nucleic Acids",
+        "Hormones"
+      ]
+    }
+  ]
+}

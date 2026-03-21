@@ -1,6 +1,6 @@
 "use server";
 
-import { model } from "@/lib/gemini";
+import { groq } from "@/lib/groq";
 import { prisma } from "@/lib/prisma";
 import { createHash } from "crypto";
 
@@ -12,13 +12,16 @@ interface GenerateQuestionParams {
     topic: string;
     subtopic: string;
     difficulty: Difficulty;
-    type: QuestionType;
 }
 
 export async function generateQuestion(params: GenerateQuestionParams) {
-    const { subject, topic, subtopic, difficulty, type } = params;
+    const { subject, topic, subtopic, difficulty } = params;
     console.log("----- GENERATE REQUEST -----");
     console.log("Received params:", { subject, topic, subtopic, difficulty });
+
+    const questionTypes = ["SINGLE_MCQ", "MULTI_MCQ", "INTEGER", "DECIMAL"] as const;
+    const generatedType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+
 
     // Fetch recent questions to avoid duplicates (context injection)
     const recentQuestions = await prisma.question.findMany({
@@ -38,9 +41,16 @@ export async function generateQuestion(params: GenerateQuestionParams) {
 
     // Difficulty specific instructions
     const difficultyGuide = {
-        "EASY": "Level: JEE Main (Easy). Direct formula application or single concept. Simple calculation.",
-        "MEDIUM": "Level: JEE Main (Moderate). Requires connecting 2 concepts or moderate calculation. Standard exam level.",
-        "HARD": "Level: JEE Advanced. Complex, multi-step problem. Requires deep conceptual understanding, combining 3+ concepts, or tricky edge cases."
+        "EASY": "Level: JEE Main Standard. Direct application of 1-2 formulas. Avoid overly complex calculations. Testing basic concept memory and straightforward derivation.",
+        "MEDIUM": "Level: JEE Main Hard / JEE Advanced Easy. Requires connecting 2-3 distinct concepts. Involves moderate cognitive load and non-obvious steps. Time-consuming but solvable with standard rigorous methods.",
+        "HARD": "Level: JEE Advanced Tough. Highly profound, multi-step problem. Requires mastering 3+ interconnected concepts or tricky edge cases. Must test deep analytical skills."
+    };
+
+    const typeInstructions: Record<string, string> = {
+        "SINGLE_MCQ": "Provide exactly 4 distinct options in the 'options' array. Exactly ONE option is correct. The 'correctAnswer' must be the letter 'A', 'B', 'C', or 'D'.",
+        "MULTI_MCQ": "Provide exactly 4 distinct options in the 'options' array. ONE OR MORE options can be correct. The 'correctAnswer' must be a comma-separated list of the correct letters in alphabetical order (e.g., 'A,C' or 'A,B,D').",
+        "INTEGER": "The 'options' array MUST be explicitly set to null. The 'correctAnswer' must be a single positive or negative integer string (e.g., '42' or '-5').",
+        "DECIMAL": "The 'options' array MUST be explicitly set to null. The 'correctAnswer' must be a decimal value rounded to exactly two decimal places as a string (e.g., '3.14' or '-0.50')."
     };
 
     const prompt = `
@@ -50,26 +60,28 @@ export async function generateQuestion(params: GenerateQuestionParams) {
     Subtopic: ${subtopic}
     Difficulty: ${difficulty}
     ${difficultyGuide[difficulty]}
-    Question Type: ${type}
+    
+    Format Type Required: ${generatedType}
+    ${typeInstructions[generatedType]}
 
     Task: Generate a unique, high-quality JEE-level question.
     
     Constraints:
     1. **Format**: Output MUST be a valid JSON object.
-    2. **Math**: ALL math expressions (even simple variables like x, y) MUST be wrapped in '$' delimiters (e.g., $x^2$, $\sqrt{13}$, $10 \text{ cm/s}$). Do not use bare LaTeX without dollars.
-    3. **Diagrams**: If a diagram is helpful (especially for Physics/Geometry), generate clear, simple SVG code for it. If not needed, set schema field to null.
-    4. **Uniqueness**: Do NOT generate questions similar to these recent ones:
+    2. **Math Expressions (CRITICAL)**: ALL math expressions MUST be wrapped in '$' delimiters for inline math (e.g., $x^2$, $\\sqrt{13}$) or '$$' for block math. DO NOT use '\\[ ... \\]', '\\( ... \\)', or bare '[' / ']' for equations under any circumstances.
+    3. **Content Strictness**: Do NOT include options (e.g., A., B., C., D.) inside the 'questionText'. The 'questionText' should ONLY contain the problem statement itself without listing choices.
+    4. **Type Adherence**: Strictly follow the Format Type Required instructions for options and correctAnswer. Do not prefix the options array items with "A.", "B.", etc. Just provide the mathematical values. 
+    5. **Uniqueness**: Do NOT generate questions similar to these recent ones:
     ${recentContext}
-    5. **Accuracy**: Solve the problem step-by-step internally before generating the final JSON to ensure the content is 100% correct.
-    6. **Options**: For MCQ, provide 4 distinct options.
-    7. **Correct Answer**: For MCQ, provide the Option Label ("A", "B", "C", or "D") matching the correct option. For Numerical, provide the exact numeric value string.
+    6. **Accuracy**: Solve the problem step-by-step internally before generating the final JSON to ensure 100% correctness.
+    7. **Diagrams**: If a diagram is helpful, generate clear, simple SVG code for it. If not needed, set diagramSVG to null.
 
     JSON Schema:
     {
-      "questionText": "string (with LaTeX and markdown)",
-      "options": ["string", "string", "string", "string"] (null if Numerical),
-      "correctAnswer": "string ('A', 'B', 'C', 'D' for MCQ, or value for Numerical)",
-      "solution": "string (Use Markdown! Use bullet points, bold headings like **Step 1**, and double newlines for breaks. Detailed step-by-step logic with LaTeX)",
+      "questionText": "string (ONLY the question statement, no options)",
+      "options": ["string", "string", "string", "string"] (null if INTEGER or DECIMAL),
+      "correctAnswer": "string (Matches Format Type Required rules)",
+      "solution": "string (Detailed step-by-step logic using Markdown, format math strictly with $ or $$)",
       "diagramSVG": "string (valid SVG code starting with <svg>... or null)"
     }
   `;
@@ -81,9 +93,21 @@ export async function generateQuestion(params: GenerateQuestionParams) {
 
         while (retryCount < MAX_RETRIES) {
             try {
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                text = response.text();
+                const completion = await groq.chat.completions.create({
+                    model: "openai/gpt-oss-120b",
+                    messages: [
+                        {
+                            role: "user",
+                            content: prompt
+                        }
+                    ],
+                    temperature: 1,
+                    max_completion_tokens: 8192,
+                    top_p: 1,
+                    reasoning_effort: "medium",
+                    stream: false
+                });
+                text = completion.choices[0]?.message?.content || "";
                 break; // Success, exit loop
             } catch (genError: any) {
                 if (genError.message.includes("503") || genError.message.includes("429")) {
@@ -150,7 +174,7 @@ export async function generateQuestion(params: GenerateQuestionParams) {
 
         const savedQuestion = await prisma.question.create({
             data: {
-                type,
+                type: generatedType,
                 difficulty,
                 questionText: data.questionText,
                 options: data.options ? JSON.stringify(data.options) : null,

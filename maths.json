@@ -1,0 +1,232 @@
+{
+  "topics": [
+    {
+      "topic": "Sets",
+      "subtopics": [
+        "Sets and their Representations",
+        "Empty Set",
+        "Finite and Infinite Sets",
+        "Equal Sets",
+        "Subsets",
+        "Universal Set",
+        "Venn Diagrams",
+        "Operations on Sets",
+        "Complement of a Set"
+      ]
+    },
+    {
+      "topic": "Relations and Functions",
+      "subtopics": [
+        "Cartesian Product of Sets",
+        "Relations",
+        "Functions",
+        "Types of Relations",
+        "Types of Functions",
+        "Composition of Functions",
+        "Invertible Function"
+      ]
+    },
+    {
+      "topic": "Trigonometric Functions",
+      "subtopics": [
+        "Angles",
+        "Trigonometric Functions",
+        "Trigonometric Functions of Sum and Difference of Two Angles"
+      ]
+    },
+    {
+      "topic": "Inverse Trigonometric Functions",
+      "subtopics": [
+        "Basic Concepts",
+        "Properties of Inverse Trigonometric Functions"
+      ]
+    },
+    {
+      "topic": "Complex Numbers and Quadratic Equations",
+      "subtopics": [
+        "Complex Numbers",
+        "Algebra of Complex Numbers",
+        "Modulus and Conjugate",
+        "Argand Plane and Polar Representation"
+      ]
+    },
+    {
+      "topic": "Linear Inequalities",
+      "subtopics": [
+        "Inequalities",
+        "Algebraic and Graphical Solutions of Linear Inequalities"
+      ]
+    },
+    {
+      "topic": "Permutations and Combinations",
+      "subtopics": [
+        "Fundamental Principle of Counting",
+        "Permutations",
+        "Combinations"
+      ]
+    },
+    {
+      "topic": "Binomial Theorem",
+      "subtopics": [
+        "Binomial Theorem for Positive Integral Indices"
+      ]
+    },
+    {
+      "topic": "Sequences and Series",
+      "subtopics": [
+        "Sequences",
+        "Series",
+        "Geometric Progression",
+        "Relationship between A.M. and G.M."
+      ]
+    },
+    {
+      "topic": "Straight Lines",
+      "subtopics": [
+        "Slope of a Line",
+        "Various Forms of the Equation of a Line",
+        "Distance of a Point from a Line"
+      ]
+    },
+    {
+      "topic": "Conic Sections",
+      "subtopics": [
+        "Sections of a Cone",
+        "Circle",
+        "Parabola",
+        "Ellipse",
+        "Hyperbola"
+      ]
+    },
+    {
+      "topic": "Introduction to Three Dimensional Geometry",
+      "subtopics": [
+        "Coordinate Axes and Coordinate Planes",
+        "Coordinates of a Point in Space",
+        "Distance between Two Points"
+      ]
+    },
+    {
+      "topic": "Limits and Derivatives",
+      "subtopics": [
+        "Intuitive Idea of Derivatives",
+        "Limits",
+        "Limits of Trigonometric Functions",
+        "Derivatives"
+      ]
+    },
+    {
+      "topic": "Statistics",
+      "subtopics": [
+        "Measures of Dispersion",
+        "Range",
+        "Mean Deviation",
+        "Variance and Standard Deviation"
+      ]
+    },
+    {
+      "topic": "Probability",
+      "subtopics": [
+        "Event",
+        "Axiomatic Approach to Probability",
+        "Conditional Probability",
+        "Multiplication Theorem on Probability",
+        "Independent Events",
+        "Bayes' Theorem"
+      ]
+    },
+    {
+      "topic": "Matrices",
+      "subtopics": [
+        "Matrix",
+        "Types of Matrices",
+        "Operations on Matrices",
+        "Transpose of a Matrix",
+        "Symmetric and Skew Symmetric Matrices",
+        "Invertible Matrices"
+      ]
+    },
+    {
+      "topic": "Determinants",
+      "subtopics": [
+        "Determinant",
+        "Area of a Triangle",
+        "Minors and Cofactors",
+        "Adjoint and Inverse of a Matrix",
+        "Applications of Determinants"
+      ]
+    },
+    {
+      "topic": "Continuity and Differentiability",
+      "subtopics": [
+        "Continuity",
+        "Differentiability",
+        "Exponential and Logarithmic Functions",
+        "Logarithmic Differentiation",
+        "Derivatives in Parametric Forms",
+        "Second Order Derivative"
+      ]
+    },
+    {
+      "topic": "Application of Derivatives",
+      "subtopics": [
+        "Rate of Change of Quantities",
+        "Increasing and Decreasing Functions",
+        "Maxima and Minima"
+      ]
+    },
+    {
+      "topic": "Integrals",
+      "subtopics": [
+        "Integration as Inverse Process of Differentiation",
+        "Methods of Integration",
+        "Integrals of Some Particular Functions",
+        "Integration by Partial Fractions",
+        "Integration by Parts",
+        "Definite Integral",
+        "Fundamental Theorem of Calculus",
+        "Evaluation of Definite Integrals",
+        "Properties of Definite Integrals"
+      ]
+    },
+    {
+      "topic": "Application of Integrals",
+      "subtopics": [
+        "Area under Simple Curves"
+      ]
+    },
+    {
+      "topic": "Differential Equations",
+      "subtopics": [
+        "Basic Concepts",
+        "General and Particular Solutions",
+        "Methods of Solving First Order Differential Equations"
+      ]
+    },
+    {
+      "topic": "Vector Algebra",
+      "subtopics": [
+        "Basic Concepts",
+        "Types of Vectors",
+        "Addition of Vectors",
+        "Multiplication of a Vector by a Scalar",
+        "Product of Two Vectors"
+      ]
+    },
+    {
+      "topic": "Three Dimensional Geometry",
+      "subtopics": [
+        "Direction Cosines and Ratios",
+        "Equation of a Line in Space",
+        "Angle between Two Lines",
+        "Shortest Distance between Two Lines"
+      ]
+    },
+    {
+      "topic": "Linear Programming",
+      "subtopics": [
+        "Mathematical Formulation of Linear Programming Problem"
+      ]
+    }
+  ]
+}

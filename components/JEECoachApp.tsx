@@ -75,7 +75,6 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
                 topic: selectedTopic.name,
                 subtopic: selectedSubtopic ? selectedSubtopic.name : selectedTopic.name, // Fallback to topic name if no subtopic
                 difficulty: difficulty,
-                type: "MCQ", // Hardcoded for now, can add toggle later
             });
             setQuestion(result);
         } catch (error) {

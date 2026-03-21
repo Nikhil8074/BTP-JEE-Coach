@@ -10,12 +10,32 @@ interface MathRendererProps {
     content: string;
 }
 
+const preprocessLaTeX = (text: string) => {
+    if (!text) return "";
+    let processed = text;
+    // Replace standard LaTeX delimiters
+    processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, (_, math) => `$$${math}$$`);
+    processed = processed.replace(/\\\(([\s\S]*?)\\\)/g, (_, math) => `$${math}$`);
+    // Heuristic capture for bare bracket block equations e.g. [ \Delta = 4 ] often spit out by some models
+    processed = processed.replace(/\[\s*([\s\S]*?)\s*\]/g, (match, inner) => {
+        const hasMath = inner.includes('\\') || inner.includes('^') || inner.includes('=') || inner.match(/[0-9][-+*\/]/) || inner.includes('_');
+        const isCommonWord = /^[a-zA-Z\s]+$/.test(inner); // Pure words shouldn't be math
+        if (hasMath && !isCommonWord) {
+            return `$$${inner}$$`;
+        }
+        return match;
+    });
+    return processed;
+};
+
 const MathRenderer: React.FC<MathRendererProps> = ({ content }) => {
+    const processedContent = useMemo(() => preprocessLaTeX(content), [content]);
+
     // Check if content contains LaTeX delimiters. If not, just render text to save perf.
-    const hasMath = useMemo(() => /\$|\\/.test(content), [content]);
+    const hasMath = useMemo(() => /\$|\\|\[/.test(processedContent), [processedContent]);
 
     if (!hasMath) {
-        return <span className="whitespace-pre-wrap">{content}</span>;
+        return <span className="whitespace-pre-wrap">{processedContent}</span>;
     }
 
     return (
@@ -28,7 +48,7 @@ const MathRenderer: React.FC<MathRendererProps> = ({ content }) => {
                     p: ({ node, ...props }) => <p className="mb-2" {...props} />
                 }}
             >
-                {content}
+                {processedContent}
             </ReactMarkdown>
         </div>
     );

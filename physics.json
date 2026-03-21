@@ -1,0 +1,354 @@
+{
+  "topics": [
+    {
+      "topic": "Units and Measurements",
+      "subtopics": [
+        "International System of Units",
+        "Significant Figures",
+        "Dimensions of Physical Quantities",
+        "Dimensional Formulae and Equations",
+        "Dimensional Analysis and Applications"
+      ]
+    },
+    {
+      "topic": "Motion in a Straight Line",
+      "subtopics": [
+        "Instantaneous Velocity and Speed",
+        "Acceleration",
+        "Kinematic Equations for Uniformly Accelerated Motion"
+      ]
+    },
+    {
+      "topic": "Motion in a Plane",
+      "subtopics": [
+        "Scalars and Vectors",
+        "Multiplication of Vectors by Real Numbers",
+        "Addition and Subtraction of Vectors (Graphical Method)",
+        "Resolution of Vectors",
+        "Vector Addition (Analytical Method)",
+        "Motion in a Plane",
+        "Motion with Constant Acceleration",
+        "Projectile Motion",
+        "Uniform Circular Motion"
+      ]
+    },
+    {
+      "topic": "Laws of Motion",
+      "subtopics": [
+        "Aristotle’s Fallacy",
+        "Law of Inertia",
+        "Newton’s First Law",
+        "Newton’s Second Law",
+        "Newton’s Third Law",
+        "Conservation of Momentum",
+        "Equilibrium of a Particle",
+        "Common Forces in Mechanics",
+        "Circular Motion",
+        "Problem Solving in Mechanics"
+      ]
+    },
+    {
+      "topic": "Work, Energy and Power",
+      "subtopics": [
+        "Work-Energy Theorem",
+        "Work",
+        "Kinetic Energy",
+        "Work Done by a Variable Force",
+        "Work-Energy Theorem for Variable Force",
+        "Potential Energy",
+        "Conservation of Mechanical Energy",
+        "Potential Energy of a Spring",
+        "Power",
+        "Collisions"
+      ]
+    },
+    {
+      "topic": "System of Particles and Rotational Motion",
+      "subtopics": [
+        "Centre of Mass",
+        "Motion of Centre of Mass",
+        "Linear Momentum of a System of Particles",
+        "Vector Product of Two Vectors",
+        "Angular Velocity",
+        "Torque and Angular Momentum",
+        "Equilibrium of a Rigid Body",
+        "Moment of Inertia",
+        "Kinematics of Rotational Motion",
+        "Dynamics of Rotational Motion",
+        "Angular Momentum in Rotations"
+      ]
+    },
+    {
+      "topic": "Gravitation",
+      "subtopics": [
+        "Kepler’s Laws",
+        "Universal Law of Gravitation",
+        "Gravitational Constant",
+        "Acceleration due to Gravity",
+        "Variation of Gravity",
+        "Gravitational Potential Energy",
+        "Escape Speed",
+        "Earth Satellites",
+        "Energy of an Orbiting Satellite"
+      ]
+    },
+    {
+      "topic": "Mechanical Properties of Solids",
+      "subtopics": [
+        "Stress and Strain",
+        "Hooke’s Law",
+        "Stress-Strain Curve",
+        "Elastic Moduli",
+        "Applications of Elastic Behaviour"
+      ]
+    },
+    {
+      "topic": "Mechanical Properties of Fluids",
+      "subtopics": [
+        "Pressure",
+        "Streamline Flow",
+        "Bernoulli’s Principle",
+        "Viscosity",
+        "Surface Tension"
+      ]
+    },
+    {
+      "topic": "Thermal Properties of Matter",
+      "subtopics": [
+        "Temperature and Heat",
+        "Measurement of Temperature",
+        "Ideal Gas Equation and Absolute Temperature",
+        "Thermal Expansion",
+        "Specific Heat Capacity",
+        "Calorimetry",
+        "Change of State",
+        "Heat Transfer",
+        "Newton’s Law of Cooling"
+      ]
+    },
+    {
+      "topic": "Thermodynamics",
+      "subtopics": [
+        "Thermal Equilibrium",
+        "Zeroth Law of Thermodynamics",
+        "Heat, Internal Energy and Work",
+        "First Law of Thermodynamics",
+        "Thermodynamic State Variables",
+        "Thermodynamic Processes",
+        "Second Law of Thermodynamics",
+        "Reversible and Irreversible Processes",
+        "Carnot Engine"
+      ]
+    },
+    {
+      "topic": "Kinetic Theory",
+      "subtopics": [
+        "Molecular Nature of Matter",
+        "Behaviour of Gases",
+        "Kinetic Theory of an Ideal Gas",
+        "Law of Equipartition of Energy",
+        "Specific Heat Capacity",
+        "Mean Free Path"
+      ]
+    },
+    {
+      "topic": "Oscillations",
+      "subtopics": [
+        "Periodic and Oscillatory Motions",
+        "Simple Harmonic Motion",
+        "SHM and Uniform Circular Motion",
+        "Velocity and Acceleration in SHM",
+        "Force Law for SHM",
+        "Energy in SHM",
+        "Simple Pendulum"
+      ]
+    },
+    {
+      "topic": "Waves",
+      "subtopics": [
+        "Transverse and Longitudinal Waves",
+        "Displacement Relation in a Progressive Wave",
+        "Speed of a Travelling Wave",
+        "Principle of Superposition",
+        "Reflection of Waves",
+        "Beats"
+      ]
+    },
+    {
+      "topic": "Electric Charges and Fields",
+      "subtopics": [
+        "Electric Charge",
+        "Conductors and Insulators",
+        "Basic Properties of Electric Charge",
+        "Coulomb’s Law",
+        "Forces between Multiple Charges",
+        "Electric Field",
+        "Electric Field Lines",
+        "Electric Flux",
+        "Electric Dipole",
+        "Dipole in a Uniform External Field",
+        "Continuous Charge Distribution",
+        "Gauss’s Law",
+        "Applications of Gauss’s Law"
+      ]
+    },
+    {
+      "topic": "Electrostatic Potential and Capacitance",
+      "subtopics": [
+        "Electrostatic Potential",
+        "Potential due to a Point Charge",
+        "Potential due to an Electric Dipole",
+        "Potential due to a System of Charges",
+        "Equipotential Surfaces",
+        "Potential Energy of a System of Charges",
+        "Potential Energy in an External Field",
+        "Electrostatics of Conductors",
+        "Dielectrics and Polarisation",
+        "Capacitors and Capacitance",
+        "Parallel Plate Capacitor",
+        "Effect of Dielectric on Capacitance",
+        "Combination of Capacitors",
+        "Energy Stored in a Capacitor"
+      ]
+    },
+    {
+      "topic": "Current Electricity",
+      "subtopics": [
+        "Electric Current",
+        "Electric Currents in Conductors",
+        "Ohm’s Law",
+        "Drift of Electrons and Origin of Resistivity",
+        "Limitations of Ohm’s Law",
+        "Resistivity of Materials",
+        "Temperature Dependence of Resistivity",
+        "Electrical Energy and Power",
+        "Cells, EMF and Internal Resistance",
+        "Cells in Series and Parallel",
+        "Kirchhoff’s Rules",
+        "Wheatstone Bridge"
+      ]
+    },
+    {
+      "topic": "Moving Charges and Magnetism",
+      "subtopics": [
+        "Magnetic Force",
+        "Motion in a Magnetic Field",
+        "Biot–Savart Law",
+        "Magnetic Field due to Circular Loop",
+        "Ampere’s Circuital Law",
+        "Solenoid",
+        "Force between Parallel Currents",
+        "Torque on Current Loop",
+        "Moving Coil Galvanometer"
+      ]
+    },
+    {
+      "topic": "Magnetism and Matter",
+      "subtopics": [
+        "Bar Magnet",
+        "Magnetism and Gauss’s Law",
+        "Magnetisation and Magnetic Intensity",
+        "Magnetic Properties of Materials"
+      ]
+    },
+    {
+      "topic": "Electromagnetic Induction",
+      "subtopics": [
+        "Experiments of Faraday and Henry",
+        "Magnetic Flux",
+        "Faraday’s Law of Induction",
+        "Lenz’s Law",
+        "Motional EMF",
+        "Inductance",
+        "AC Generator"
+      ]
+    },
+    {
+      "topic": "Alternating Current",
+      "subtopics": [
+        "AC Voltage Applied to a Resistor",
+        "Phasor Representation",
+        "AC Voltage in Inductor",
+        "AC Voltage in Capacitor",
+        "Series LCR Circuit",
+        "Power Factor",
+        "Transformers"
+      ]
+    },
+    {
+      "topic": "Electromagnetic Waves",
+      "subtopics": [
+        "Displacement Current",
+        "Electromagnetic Waves",
+        "Electromagnetic Spectrum"
+      ]
+    },
+    {
+      "topic": "Ray Optics and Optical Instruments",
+      "subtopics": [
+        "Reflection by Spherical Mirrors",
+        "Refraction",
+        "Total Internal Reflection",
+        "Refraction through Lenses",
+        "Refraction through Prism",
+        "Optical Instruments"
+      ]
+    },
+    {
+      "topic": "Wave Optics",
+      "subtopics": [
+        "Huygens Principle",
+        "Refraction and Reflection using Huygens Principle",
+        "Coherent and Incoherent Addition of Waves",
+        "Interference and Young’s Experiment",
+        "Diffraction",
+        "Polarisation"
+      ]
+    },
+    {
+      "topic": "Dual Nature of Radiation and Matter",
+      "subtopics": [
+        "Electron Emission",
+        "Photoelectric Effect",
+        "Experimental Study of Photoelectric Effect",
+        "Wave Theory vs Particle Nature",
+        "Einstein’s Photoelectric Equation",
+        "Photon",
+        "Wave Nature of Matter"
+      ]
+    },
+    {
+      "topic": "Atoms",
+      "subtopics": [
+        "Alpha Particle Scattering",
+        "Rutherford Model",
+        "Atomic Spectra",
+        "Bohr Model",
+        "Line Spectra",
+        "de Broglie Explanation"
+      ]
+    },
+    {
+      "topic": "Nuclei",
+      "subtopics": [
+        "Atomic Masses and Composition",
+        "Size of Nucleus",
+        "Mass-Energy and Binding Energy",
+        "Nuclear Force",
+        "Radioactivity",
+        "Nuclear Energy"
+      ]
+    },
+    {
+      "topic": "Semiconductor Electronics",
+      "subtopics": [
+        "Classification of Materials",
+        "Intrinsic Semiconductor",
+        "Extrinsic Semiconductor",
+        "p-n Junction",
+        "Semiconductor Diode",
+        "Diode as Rectifier"
+      ]
+    }
+  ]
+}
