@@ -94,6 +94,7 @@ export async function generateQuestion(params: GenerateQuestionParams) {
        - DO NOT EVER use '$' or '$$' for any math.
        - BAD: $x^2$ or $$x^2$$
        - GOOD: \\\(x^2\\\) or \\\[x^2\\\]
+       - CHEMISTRY INSTRUCTION: NEVER use \\ce{} or mhchem packages as they are NOT supported by our renderer. You MUST use standard LaTeX math (e.g. \\mathrm{H_2O} or regular subscripts/superscripts) for all chemical equations.
     3. **Content Strictness**: Do NOT include options (e.g., A., B., C., D.) inside the 'questionText'. The 'questionText' should ONLY contain the problem statement itself without listing choices.
     4. **Type Adherence**: Strictly follow the Format Type Required instructions for options and correctAnswer. Do not prefix the options array items with "A.", "B.", etc. Just provide the mathematical values. 
     5. **Uniqueness**: Do NOT generate questions similar to these recent ones:

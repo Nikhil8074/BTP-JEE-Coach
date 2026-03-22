@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
+import { useTheme } from 'next-themes';
 import { generateQuestion } from '@/app/actions/generate';
 import QuestionCard from '@/components/QuestionCard';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2, BookOpen, BrainCircuit, Sparkles } from 'lucide-react';
+import { Loader2, BookOpen, BrainCircuit, Sparkles, Sun, Moon } from 'lucide-react';
 
 type Difficulty = "EASY" | "MEDIUM" | "HARD";
 
@@ -38,6 +39,7 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
     const [difficulty, setDifficulty] = useState<Difficulty>("MEDIUM");
     const [loading, setLoading] = useState(false);
     const [question, setQuestion] = useState<any>(null);
+    const { theme, setTheme } = useTheme();
 
     const selectedSubject = useMemo(() =>
         initialSubjects.find(s => s.id === selectedSubjectId),
@@ -82,97 +84,111 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
             
             {/* Global Space Background Gradient */}
             <div className="absolute inset-0 pointer-events-none flex justify-center overflow-hidden">
-                <div className="absolute -top-[10%] w-[800px] md:w-[1200px] h-[600px] md:h-[800px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/30 via-indigo-900/10 to-transparent blur-[100px] opacity-70 animate-in fade-in duration-1000" />
+                <div className="absolute -top-[10%] w-[800px] md:w-[1200px] h-[600px] md:h-[800px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-violet-900/30 dark:via-indigo-900/10 from-violet-300/30 via-indigo-200/20 to-transparent blur-[100px] opacity-70 animate-in fade-in duration-1000" />
+            </div>
+
+            {/* Theme Toggle Button */}
+            <div className="absolute top-4 right-4 md:top-8 md:right-8 z-50">
+                <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    className="rounded-full bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 backdrop-blur-md shadow-lg transition-all"
+                >
+                    <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
+                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-violet-300" />
+                    <span className="sr-only">Toggle theme</span>
+                </Button>
             </div>
 
             <div className="relative z-10 max-w-5xl mx-auto space-y-12">
 
                 {/* Header */}
                 <div className="text-center space-y-4 animate-in slide-in-from-bottom-6 duration-700 pb-4">
-                    <div className="inline-flex items-center justify-center p-3 mb-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_30px_rgba(139,92,246,0.15)]">
-                        <BrainCircuit className="w-10 h-10 text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.6)]" />
+                    <div className="inline-flex items-center justify-center p-3 mb-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+                        <BrainCircuit className="w-10 h-10 text-violet-500 dark:text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.6)]" />
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-serif font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 drop-shadow-sm pb-2">
+                    <h1 className="text-5xl md:text-7xl font-serif font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-300 drop-shadow-sm pb-2">
                         JEE Coach AI
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
                         Unleash your potential with dynamically synthesized problems spanning Mathematics, Physics, and Advanced Chemistry.
                     </p>
                 </div>
 
                 {/* Configuration Glass Panel */}
-                <Card className="border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl relative overflow-hidden group animate-in slide-in-from-bottom-8 duration-700 fade-in fill-mode-both delay-150">
+                <Card className="border border-black/5 dark:border-white/10 bg-white/5 dark:bg-white/5 backdrop-blur-2xl shadow-2xl relative overflow-hidden group animate-in slide-in-from-bottom-8 duration-700 fade-in fill-mode-both delay-150">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     
-                    <CardHeader className="border-b border-white/5 pb-6">
-                        <CardTitle className="flex items-center gap-3 text-2xl font-serif text-white/90">
-                            <BookOpen className="w-6 h-6 text-violet-400" />
+                    <CardHeader className="border-b border-black/5 dark:border-white/5 pb-6">
+                        <CardTitle className="flex items-center gap-3 text-2xl font-serif text-slate-900 dark:text-white/90">
+                            <BookOpen className="w-6 h-6 text-violet-500 dark:text-violet-400" />
                             Configure Practice Session
                         </CardTitle>
-                        <CardDescription className="text-slate-400 text-base">Select a topic to generate a unique practice problem.</CardDescription>
+                        <CardDescription className="text-slate-500 dark:text-slate-400 text-base">Select a topic to generate a unique practice problem.</CardDescription>
                     </CardHeader>
 
                     <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 pt-8">
 
                         <div className="space-y-3">
-                            <label className="text-sm font-semibold text-slate-300 tracking-wide uppercase shadow-sm">Subject</label>
+                            <label className="text-sm font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Subject</label>
                             <Select value={selectedSubjectId} onValueChange={(val) => {
                                 setSelectedSubjectId(val);
                                 setSelectedTopicId("");
                                 setSelectedSubtopicId("");
                             }}>
-                                <SelectTrigger className="bg-black/20 border-white/10 text-white hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50">
+                                <SelectTrigger className="bg-black/5 dark:bg-black/20 border-black/10 dark:border-white/10 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50">
                                     <SelectValue placeholder="Select Subject" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-900 border-white/10 text-white backdrop-blur-xl">
+                                <SelectContent className="bg-white dark:bg-slate-900 border-black/10 dark:border-white/10 text-slate-900 dark:text-white backdrop-blur-xl">
                                     {initialSubjects.map(s => (
-                                        <SelectItem key={s.id} value={s.id} className="focus:bg-violet-600/20">{s.name}</SelectItem>
+                                        <SelectItem key={s.id} value={s.id} className="focus:bg-violet-100 dark:focus:bg-violet-600/20">{s.name}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-sm font-semibold text-slate-300 tracking-wide uppercase shadow-sm">Topic</label>
+                            <label className="text-sm font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Topic</label>
                             <Select value={selectedTopicId} onValueChange={(val) => {
                                 setSelectedTopicId(val);
                                 setSelectedSubtopicId("");
                             }} disabled={!selectedSubjectId}>
-                                <SelectTrigger className="bg-black/20 border-white/10 text-white hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50 disabled:opacity-50">
+                                <SelectTrigger className="bg-black/5 dark:bg-black/20 border-black/10 dark:border-white/10 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50 disabled:opacity-50">
                                     <SelectValue placeholder="Select Topic" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-900 border-white/10 text-white backdrop-blur-xl">
+                                <SelectContent className="bg-white dark:bg-slate-900 border-black/10 dark:border-white/10 text-slate-900 dark:text-white backdrop-blur-xl">
                                     {topics.map(t => (
-                                        <SelectItem key={t.id} value={t.id} className="focus:bg-violet-600/20">{t.name}</SelectItem>
+                                        <SelectItem key={t.id} value={t.id} className="focus:bg-violet-100 dark:focus:bg-violet-600/20">{t.name}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-sm font-semibold text-slate-300 tracking-wide uppercase shadow-sm">Subtopic</label>
+                            <label className="text-sm font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Subtopic</label>
                             <Select value={selectedSubtopicId} onValueChange={setSelectedSubtopicId} disabled={!selectedTopicId || subtopics.length === 0}>
-                                <SelectTrigger className="bg-black/20 border-white/10 text-white hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50 disabled:opacity-50">
+                                <SelectTrigger className="bg-black/5 dark:bg-black/20 border-black/10 dark:border-white/10 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50 disabled:opacity-50">
                                     <SelectValue placeholder={subtopics.length === 0 ? "No Subtopics" : "Select Subtopic"} />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-900 border-white/10 text-white backdrop-blur-xl">
+                                <SelectContent className="bg-white dark:bg-slate-900 border-black/10 dark:border-white/10 text-slate-900 dark:text-white backdrop-blur-xl">
                                     {subtopics.map(st => (
-                                        <SelectItem key={st.id} value={st.id} className="focus:bg-violet-600/20">{st.name}</SelectItem>
+                                        <SelectItem key={st.id} value={st.id} className="focus:bg-violet-100 dark:focus:bg-violet-600/20">{st.name}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-sm font-semibold text-slate-300 tracking-wide uppercase shadow-sm">Difficulty</label>
+                            <label className="text-sm font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Difficulty</label>
                             <Select value={difficulty} onValueChange={(val) => setDifficulty(val as Difficulty)}>
-                                <SelectTrigger className="bg-black/20 border-white/10 text-white hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50">
+                                <SelectTrigger className="bg-black/5 dark:bg-black/20 border-black/10 dark:border-white/10 text-slate-900 dark:text-white hover:bg-black/10 dark:hover:bg-black/40 hover:border-violet-500/40 transition-colors h-12 rounded-xl focus:ring-violet-500/50">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-900 border-white/10 text-white backdrop-blur-xl">
-                                    <SelectItem value="EASY" className="focus:bg-violet-600/20">Easy Framework</SelectItem>
-                                    <SelectItem value="MEDIUM" className="focus:bg-violet-600/20">Standard JEE Main</SelectItem>
-                                    <SelectItem value="HARD" className="focus:bg-red-500/20 text-red-300 font-medium">Advanced Brutal</SelectItem>
+                                <SelectContent className="bg-white dark:bg-slate-900 border-black/10 dark:border-white/10 text-slate-900 dark:text-white backdrop-blur-xl">
+                                    <SelectItem value="EASY" className="focus:bg-violet-100 dark:focus:bg-violet-600/20">Easy Framework</SelectItem>
+                                    <SelectItem value="MEDIUM" className="focus:bg-violet-100 dark:focus:bg-violet-600/20">Standard JEE Main</SelectItem>
+                                    <SelectItem value="HARD" className="focus:bg-red-100 dark:focus:bg-red-500/20 text-red-600 dark:text-red-300 font-medium">Advanced Brutal</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
