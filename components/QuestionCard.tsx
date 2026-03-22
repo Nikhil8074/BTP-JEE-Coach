@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import MathRenderer from './MathRenderer';
+import SmilesRenderer from './SmilesRenderer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -22,10 +23,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onNext }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showSolution, setShowSolution] = useState(false);
 
-    if (!question) return null;
-
     const options: string[] | null = React.useMemo(() => {
-        if (!question.options) return null;
+        if (!question?.options) return null;
         if (typeof question.options === 'string') {
             try {
                 return JSON.parse(question.options);
@@ -35,14 +34,15 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onNext }) => {
             }
         }
         return question.options;
-    }, [question.options]);
+    }, [question]);
 
     const correctAnswers = React.useMemo(() => {
-        if (!question.correctAnswer) return [];
+        if (!question?.correctAnswer) return [];
         return question.correctAnswer.split(",").map((s: string) => s.trim().toUpperCase());
-    }, [question.correctAnswer]);
+    }, [question]);
 
     const isCorrect = React.useMemo(() => {
+        if (!question) return false;
         if (question.type === "SINGLE_MCQ" || question.type === "MCQ") { // Fallback for old questions
             return selectedOption === correctAnswers[0] || selectedOption === question.correctAnswer;
         } else if (question.type === "MULTI_MCQ") {
@@ -53,7 +53,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onNext }) => {
         } else {
             return numericalAnswer.trim() === question.correctAnswer.trim();
         }
-    }, [question.type, selectedOption, selectedOptions, numericalAnswer, correctAnswers, question.correctAnswer]);
+    }, [question, selectedOption, selectedOptions, numericalAnswer, correctAnswers]);
 
     const handleSubmit = () => {
         setIsSubmitted(true);
@@ -69,6 +69,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onNext }) => {
         );
     };
 
+    if (!question) return null;
+
     return (
         <Card className="w-full max-w-3xl mx-auto mt-6 shadow-lg border-2 border-slate-100 dark:border-slate-800">
             <CardHeader>
@@ -83,9 +85,15 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onNext }) => {
             </CardHeader>
 
             <CardContent className="space-y-6">
-                {question.diagrams && (
-                    <div className="flex justify-center my-4 p-4 bg-white rounded-lg border border-slate-200 dark:bg-slate-900 dark:border-slate-700">
-                        <div dangerouslySetInnerHTML={{ __html: question.diagrams }} className="w-full max-w-md" />
+                {/* Dynamically Render Advanced Diagrams */}
+                {question.diagramType === "SMILES" && question.diagramContent && (
+                    <SmilesRenderer smiles={question.diagramContent} />
+                )}
+
+                {question.diagramType === "TIKZ" && question.diagramContent && (
+                    <div className="flex justify-center my-4 p-4 bg-white rounded-lg border-t-4 border-b-4 border-slate-100 dark:bg-slate-900 dark:border-slate-800">
+                        {/* React strips script tags dynamically, so we dangerously output the literal script block allowing TikZJax mutation observers to immediately compile it into SVG */}
+                        <div dangerouslySetInnerHTML={{ __html: `<script type="text/tikz">${question.diagramContent}</script>` }} />
                     </div>
                 )}
 
