@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
+import { flushSync } from 'react-dom';
 import { useTheme } from 'next-themes';
 import { generateQuestion } from '@/app/actions/generate';
 import QuestionCard from '@/components/QuestionCard';
@@ -87,7 +88,7 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
     };
 
     return (
-        <div className="relative min-h-screen bg-background overflow-x-hidden p-4 py-12 md:p-8 lg:p-12 transition-colors duration-700 font-sans">
+        <div className="relative min-h-screen bg-background overflow-x-hidden p-4 py-12 md:p-8 lg:p-12 font-sans">
             
             {/* Global Space Background Gradient */}
             <div className="absolute inset-0 pointer-events-none flex justify-center overflow-hidden">
@@ -95,15 +96,53 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
             </div>
 
             {/* Theme Toggle Button */}
-            <div className="absolute top-4 right-4 md:top-8 md:right-8 z-50">
+            <div className="fixed top-4 right-4 md:top-8 md:right-8 z-50">
                 <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                    className="rounded-full bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 backdrop-blur-md shadow-lg transition-all"
+                    onClick={(e) => {
+                        const isDark = theme === 'dark';
+                        const newTheme = isDark ? 'light' : 'dark';
+                        
+                        // Capture coordinates immediately
+                        const x = e.clientX;
+                        const y = e.clientY;
+                        const endRadius = Math.hypot(
+                            Math.max(x, window.innerWidth - x),
+                            Math.max(y, window.innerHeight - y)
+                        );
+
+                        if (!document.startViewTransition) {
+                            setTheme(newTheme);
+                            return;
+                        }
+
+                        const transition = document.startViewTransition(() => {
+                            flushSync(() => {
+                                setTheme(newTheme);
+                            });
+                        });
+
+                        transition.ready.then(() => {
+                            document.documentElement.animate(
+                                {
+                                    clipPath: [
+                                        `circle(0px at ${x}px ${y}px)`,
+                                        `circle(${endRadius}px at ${x}px ${y}px)`
+                                    ],
+                                },
+                                {
+                                    duration: 500,
+                                    easing: "ease-in",
+                                    pseudoElement: "::view-transition-new(root)",
+                                }
+                            );
+                        });
+                    }}
+                    className="w-14 h-14 rounded-full border-2 border-slate-900 dark:border-white bg-white/10 dark:bg-black/20 hover:scale-110 hover:bg-black/5 dark:hover:bg-white/20 backdrop-blur-xl shadow-2xl transition-all duration-300 pointer-events-auto"
                 >
-                    <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
-                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-violet-300" />
+                    <Sun className="h-7 w-7 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
+                    <Moon className="absolute h-7 w-7 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-violet-300" />
                     <span className="sr-only">Toggle theme</span>
                 </Button>
             </div>

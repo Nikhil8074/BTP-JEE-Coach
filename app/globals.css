@@ -136,3 +136,25 @@ nextjs-portal,
     @apply bg-background text-foreground;
   }
 }
+
+/* View Transition API Overrides for Circular Theme Reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Force-suppress all transitions during theme reveal to prevent state-snapshot pollution */
+html.switching-theme,
+html.switching-theme *,
+html.switching-theme *::before,
+html.switching-theme *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+}
