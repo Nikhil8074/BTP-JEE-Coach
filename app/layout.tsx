@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "JEE Coach",
-  description: "Your personalized AI tutor for JEE preparation",
+  title: "JEE Coach Advanced AI",
+  description: "Next-Generation AI Tutor powering the sharpest Joint Entrance Examination minds.",
 };
 
 export default function RootLayout({
@@ -23,13 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css" />
         <script src="https://tikzjax.com/v1/tikzjax.js" async></script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${outfit.variable} antialiased selection:bg-violet-600/40 font-sans`}
       >
         {children}
       </body>
