@@ -7,7 +7,8 @@ import QuestionCard from '@/components/QuestionCard';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2, BookOpen, BrainCircuit, Sparkles, Sun, Moon } from 'lucide-react';
+import { Loader2, BookOpen, BrainCircuit, Sparkles, Sun, Moon, AlertTriangle, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type Difficulty = "EASY" | "MEDIUM" | "HARD";
 
@@ -39,7 +40,13 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
     const [difficulty, setDifficulty] = useState<Difficulty>("MEDIUM");
     const [loading, setLoading] = useState(false);
     const [question, setQuestion] = useState<any>(null);
+    const [errorToast, setErrorToast] = useState({ message: "", visible: false });
     const { theme, setTheme } = useTheme();
+
+    const showError = (msg: string) => {
+        setErrorToast({ message: msg, visible: true });
+        setTimeout(() => setErrorToast(prev => ({ ...prev, visible: false })), 5000);
+    };
 
     const selectedSubject = useMemo(() =>
         initialSubjects.find(s => s.id === selectedSubjectId),
@@ -73,7 +80,7 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
             setQuestion(result);
         } catch (error) {
             console.error(error);
-            alert("Failed to generate question. Please try again.");
+            showError("Failed to generate question. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -228,8 +235,25 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
                         </div>
                     )}
                 </div>
-
+                </div>
+            {/* Error Notification Toast */}
+            <div 
+                className={cn(
+                    "fixed bottom-6 right-6 z-[100] flex items-center gap-3 p-4 pr-3 rounded-xl shadow-2xl border transition-all duration-500 ease-in-out",
+                    errorToast.visible ? "translate-x-0 opacity-100" : "translate-x-[120%] opacity-0 pointer-events-none",
+                    "bg-white dark:bg-slate-900 border-red-500/20 text-red-600 dark:text-red-400"
+                )}
+            >
+                <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+                <span className="font-semibold text-sm mr-2">{errorToast.message}</span>
+                <button 
+                    onClick={() => setErrorToast(prev => ({ ...prev, visible: false }))} 
+                    className="hover:bg-black/5 dark:hover:bg-white/10 p-1.5 rounded-md transition-colors"
+                >
+                    <X className="w-4 h-4" />
+                </button>
             </div>
+
         </div>
     );
 }

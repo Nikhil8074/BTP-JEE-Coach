@@ -163,7 +163,29 @@ export async function generateQuestion(params: GenerateQuestionParams) {
 
         let data;
         try {
-            data = JSON.parse(cleanedText);
+            let sanitizedText = "";
+            for (let i = 0; i < cleanedText.length; i++) {
+                if (cleanedText[i] === '\\') {
+                    if (i + 1 < cleanedText.length) {
+                        const next = cleanedText[i + 1];
+                        if (next === '\\') {
+                            sanitizedText += '\\\\';
+                            i++;
+                        } else if ('"/bfnrtu'.includes(next)) {
+                            sanitizedText += '\\' + next;
+                            i++;
+                        } else {
+                            sanitizedText += '\\\\' + next;
+                            i++;
+                        }
+                    } else {
+                        sanitizedText += '\\\\';
+                    }
+                } else {
+                    sanitizedText += cleanedText[i];
+                }
+            }
+            data = JSON.parse(sanitizedText);
         } catch (parseError) {
             console.error("JSON Parse Error:", parseError, "\\nRaw text:", text);
             throw new Error("AI returned invalid JSON");
