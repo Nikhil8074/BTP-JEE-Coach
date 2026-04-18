@@ -4,7 +4,9 @@ import React, { useState, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import { useTheme } from 'next-themes';
 import { generateQuestion } from '@/app/actions/generate';
+import { generateConcept } from '@/app/actions/generateConcept';
 import QuestionCard from '@/components/QuestionCard';
+import ConceptCard from '@/components/ConceptCard';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -39,8 +41,10 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
     const [selectedTopicId, setSelectedTopicId] = useState<string>("");
     const [selectedSubtopicId, setSelectedSubtopicId] = useState<string>("");
     const [difficulty, setDifficulty] = useState<Difficulty>("MEDIUM");
+    const [mode, setMode] = useState<"PRACTICE" | "LEARN">("PRACTICE");
     const [loading, setLoading] = useState(false);
     const [question, setQuestion] = useState<any>(null);
+    const [concept, setConcept] = useState<any>(null);
     const [errorToast, setErrorToast] = useState({ message: "", visible: false });
     const { theme, setTheme } = useTheme();
 
@@ -70,18 +74,29 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
 
         setLoading(true);
         setQuestion(null);
+        setConcept(null);
 
         try {
-            const result = await generateQuestion({
-                subject: selectedSubject.name,
-                topic: selectedTopic.name,
-                subtopic: selectedSubtopic ? selectedSubtopic.name : selectedTopic.name,
-                difficulty: difficulty,
-            });
-            setQuestion(result);
+            if (mode === "PRACTICE") {
+                const result = await generateQuestion({
+                    subject: selectedSubject.name,
+                    topic: selectedTopic.name,
+                    subtopic: selectedSubtopic ? selectedSubtopic.name : selectedTopic.name,
+                    difficulty: difficulty,
+                });
+                setQuestion(result);
+            } else {
+                const result = await generateConcept({
+                    subject: selectedSubject.name,
+                    topic: selectedTopic.name,
+                    subtopic: selectedSubtopic ? selectedSubtopic.name : selectedTopic.name,
+                    difficulty: difficulty,
+                });
+                setConcept(result);
+            }
         } catch (error) {
             console.error(error);
-            showError("Failed to generate question. Please try again.");
+            showError(`Failed to generate ${mode === "PRACTICE" ? "question" : "concept"}. Please try again.`);
         } finally {
             setLoading(false);
         }
@@ -169,12 +184,31 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
                     <CardHeader className="border-b border-black/5 dark:border-white/5 pb-6">
                         <CardTitle className="flex items-center gap-3 text-2xl font-serif text-slate-900 dark:text-white/90">
                             <BookOpen className="w-6 h-6 text-violet-500 dark:text-violet-400" />
-                            Configure Practice Session
+                            Configure Session
                         </CardTitle>
-                        <CardDescription className="text-slate-500 dark:text-slate-400 text-base">Select a topic to generate a unique practice problem.</CardDescription>
+                        <CardDescription className="text-slate-500 dark:text-slate-400 text-base">Select a topic to {mode === "PRACTICE" ? "generate a unique practice problem" : "learn the concept"}.</CardDescription>
                     </CardHeader>
 
-                    <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 pt-8">
+                    <CardContent className="flex flex-col gap-6 p-6 pt-8">
+                        {/* Mode Toggle */}
+                        <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl w-full md:w-80 mx-auto">
+                            <Button 
+                                variant={mode === "LEARN" ? "default" : "ghost"} 
+                                onClick={() => { setMode("LEARN"); setQuestion(null); setConcept(null); }} 
+                                className={cn("flex-1 rounded-lg transition-all", mode === "LEARN" ? "bg-violet-600 hover:bg-violet-700 text-white shadow-md" : "hover:bg-black/5 dark:hover:bg-white/10")}
+                            >
+                                Learn Mode
+                            </Button>
+                            <Button 
+                                variant={mode === "PRACTICE" ? "default" : "ghost"} 
+                                onClick={() => { setMode("PRACTICE"); setQuestion(null); setConcept(null); }} 
+                                className={cn("flex-1 rounded-lg transition-all", mode === "PRACTICE" ? "bg-violet-600 hover:bg-violet-700 text-white shadow-md" : "hover:bg-black/5 dark:hover:bg-white/10")}
+                            >
+                                Practice Mode
+                            </Button>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                         <div className="space-y-3">
                             <label className="text-sm font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Subject</label>
@@ -238,7 +272,7 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
                                 </SelectContent>
                             </Select>
                         </div>
-
+                        </div>
                     </CardContent>
 
                     <div className="p-6 pt-2">
@@ -254,12 +288,12 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
                                 <div className="flex items-center gap-3">
                                     <div className="absolute inset-0 bg-white/10 animate-pulse pointer-events-none" />
                                     <Loader2 className="h-6 w-6 animate-spin text-white/90" />
-                                    <span className="animate-pulse">Generating Problem...</span>
+                                    <span className="animate-pulse">{mode === "PRACTICE" ? "Generating Problem..." : "Generating Concept..."}</span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-2">
                                     <Sparkles className="w-5 h-5" />
-                                    Generate Question
+                                    {mode === "PRACTICE" ? "Generate Question" : "Generate Concept"}
                                 </div>
                             )}
                         </Button>
@@ -268,9 +302,14 @@ export default function JEECoachApp({ initialSubjects }: JEECoachAppProps) {
 
                 {/* Output Area */}
                 <div className="transition-all duration-700 ease-out flex flex-col items-center w-full">
-                    {question && (
+                    {mode === "PRACTICE" && question && (
                         <div className="animate-in slide-in-from-bottom-12 fade-in duration-700 fill-mode-both w-full">
                             <QuestionCard question={question} onNext={handleGenerate} />
+                        </div>
+                    )}
+                    {mode === "LEARN" && concept && (
+                        <div className="animate-in slide-in-from-bottom-12 fade-in duration-700 fill-mode-both w-full text-left">
+                            <ConceptCard concept={concept} />
                         </div>
                     )}
                 </div>
